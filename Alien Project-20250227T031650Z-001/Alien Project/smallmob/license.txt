@@ -1,0 +1,11 @@
+Model Information:
+* title:	chibi alien Walking (animated)
+* source:	https://sketchfab.com/3d-models/chibi-alien-walking-animated-43d56eda25434cc5b0ebe696bf3d4c3e
+* author:	vicente betoret ferrero (https://sketchfab.com/deathcow)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "chibi alien Walking (animated)" (https://sketchfab.com/3d-models/chibi-alien-walking-animated-43d56eda25434cc5b0ebe696bf3d4c3e) by vicente betoret ferrero (https://sketchfab.com/deathcow) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

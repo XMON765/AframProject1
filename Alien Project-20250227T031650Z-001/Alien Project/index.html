@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.2/dist/aframe-physics-system.min.js"></script>
+	<script src="script.js"></script> 
+	<script src="shotty.js"></script>
+	<script src="shield.js"></script>
+	<script src="rifle.js"></script>
+	<script src="enemy.js"></script>
+	<script src="heal.js"></script>
+  </head>
+  <body>
+ <!--	http://localhost:8563 -->
+    <a-scene  stats="true" environment physics="driver: local; stats: panel">
+      <a-assets>
+		<a-asset-item id="alienGun" src="guns/railgun.glb" ></a-asset-item>
+		<a-asset-item id="gunFlash" src="guns/gunFlash.glb" ></a-asset-item>
+		<a-asset-item id="colkgun" src="guns/siliconegun.glb" ></a-asset-item>
+		<a-asset-item id="520a" src="guns/model520a.glb" ></a-asset-item>
+		<a-asset-item id="rm277" src="guns/rm277.glb" ></a-asset-item>
+		
+		<a-asset-item id="shopkeeper" src="shopkeeper/scene.gltf"></a-asset-item>
+		<a-asset-item id="bossAlien" src="bossmob/scene.gltf"></a-asset-item>
+		<a-asset-item id="smallAlien" src="smallmob/scene.gltf"></a-asset-item>
+		<a-asset-item id="normalAlien" src="normalmob/scene.gltf"></a-asset-item>
+		<a-asset-item id="flyingAlien" src="flyingmob/scene.gltf"></a-asset-item>
+	  </a-assets>
+	  
+	  
+		  <!--
+		  <a-gltf-model  src="#alienGun" position="0 0 0" animation-mixer></a-gltf-model>
+		  <a-gltf-model  src="#gunFlash" position="0 0 -1" animation-mixer scale="0.001 0.001 0.001" ></a-gltf-model>
+		  <a-gltf-model id="shot_gun" src="#520a" position=".5 -1 0" rotation="0 91 0"></a-gltf-model>
+		  <a-gltf-model  src="#colkgun" position=".5 -1 0" rotation="0 91 0" scale=".5 .6 .6"></a-gltf-model>
+		  <a-gltf-model  src="#rm277" position=".5 -.7 -1" rotation="0 91 0" scale=".8 .8 .8"></a-gltf-model>
+		  
+		  -->
+		 
+		  
+		  
+		  <!--
+		  <a-entity>
+				<a-box position="0 -1 -1" color="green" width="2" height="1" depth=".1"></a-box>
+				<a-box position="0 0 -1" width="2" height="1" depth=".1" opacity="0"></a-box>
+				<a-box position="0 .5 -1" color="green" width="2" height=".5" depth=".1"></a-box>
+			</a-entity>
+		  -->
+	 
+	  
+	  <a-assets>
+				<a-asset-item id="shopkeeper" src="shopkeeper/scene.gltf"></a-asset-item>
+				<a-asset-item id="bossAlien" src="bossmob/scene.gltf"></a-asset-item>
+				<a-asset-item id="smallAlien" src="smallmob/scene.gltf"></a-asset-item>
+				<a-asset-item id="normalAlien" src="normalmob/scene.gltf"></a-asset-item>
+				<a-asset-item id="flyingAlien" src="flyingmob/scene.gltf"></a-asset-item>
+			</a-assets>
+			<a-entity id="restRoom">
+				<a-camera look-controls="pointerLockEnabled:true" position="0 2 5" active="true" id="cam1" >
+					<a-cursor>
+						<a-text id="health" position="-3.5 1.5 -1" color="white" value="Health: "></a-text>
+						<a-text id="ammo" position="-3.5 1.2 -1" color="white" value="Ammo: "></a-text>
+						<a-text id="weapon" position="-3.5 -1.5 -1" color="white" value="Weapon: "></a-text>
+						<a-text id="ui" position="3.5 2.2 -2"></a-text>
+						<a-text id="ui2"></a-text>
+					</a-cursor>
+				</a-camera>
+			
+				<a-entity id="mainRoom">
+					<a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" depth="35" color="#000000" ></a-plane>
+					<a-box position="0 0 0" rotation="0 0 0" width="35" height="25" depth="35" side="double" color="#00008B">
+					<a-sphere light="type: ambient; intensity:1" position "0 0 0" rotation="0 0 0" width="25" radius="25" depth="25" side="double" color="#00e9ec">
+					<a-box position="0 24.9 0" width="30" height="25" depth="30" color="#00ced1">
+					<a-sky color="#000000"></a-sky>
+				</a-entity>
+			
+				<a-entity id="spawnPoint">
+					<a-cylinder position="0 -0.5 5" height="1.1" color="#32CD32">
+					<a-cylinder position="0 -0.5 -0.01" height="2.01" color="#808080" radius="1.2">
+				</a-entity>
+				
+				<a-entity id="floorButton">
+					<a-cylinder position="0 -0.5 3" height="1.1" color="#32CD32" radius ="0.2">
+					<a-cylinder position="0 -0.5 0" height="2.01" color="#808080" radius="0.3">
+				</a-entity>
+			
+				<a-entity id="destructibleBox">
+					<a-box position="15 1.25 15" rotation="0 45 0" width="2.5" height="2.5" depth="2.5" color="#D4D4D4">
+					<a-box position="0 0.1 0" rotation="0 90 0" width="0.3" height="2.7" depth="2.8" color="#39FF14">
+					<a-box position="0 0 0" rotation="0 90 0" width="0.3" height="2.8" depth="2.8" color="#39FF14">
+				</a-entity>
+			
+				<a-entity id="shop">
+					<a-box position="-14.5 0 0" width="2.5" depth="7" height="3" color="#C0C0C0">
+					<a-box position="0.1 0.8 0" rotation=" 10 0 0" width="2.4" depth="6.9" height="0.2" color="#32CD32">
+					<a-box position="0.1 0 0" rotation=" -20 0 0" width="2.2" depth="6.9" height="0.2" color="#32CD32">
+					<a-gltf-model  src="#shopkeeper" position="-2 -0.7 0" rotation="0 90 10" scale="2 2 2" animation-mixer></a-gltf-model>
+				</a-entity>
+			</a-entity>
+			
+			<a-entity id="enemyRoom">
+			<a-camera position="0 103 0" active="false" id="cam2" look-controls="pointerLockEnabled:true">
+					<a-cursor>
+						<a-text id="health" position="-3.5 1.5 -1" color="white" value="Health: "></a-text>
+						<a-text id="ammo" position="-3.5 1.2 -1" color="white" value="Ammo: "></a-text>
+						<a-text id="weapon" position="-3.5 -1.5 -1" color="white" value="Weapon: "></a-text>
+					</a-cursor>
+			</a-camera>
+			
+				<a-entity id="mainRoomE">
+					<a-plane position="0 100 0" light="type: ambient; intensity:0.1" rotation="-90 0 0" width="50" height="50" depth="35" color="#C0C0C0" ></a-plane>
+					<a-box position="0 100 0" rotation="0 0 0" width="35" height="25" depth="35" side="double" color="#00008B">
+					<a-sphere light="type: ambient; intensity:0" position "0 0 0" rotation="0 0 0" width="25" radius="25" depth="25" side="double" color="#00e9ec">
+					<a-box position="0 24.9 0" width="30" height="25" depth="30" color="#00ced1">
+				</a-entity>
+			
+				<a-entity id="spawnPointE">
+					<a-cylinder position="0 99.5 0" height="1.1" color="#32CD32">
+					<a-cylinder position="0 -0.5 0" height="2.01" color="#808080" radius="1.2">
+				</a-entity>
+				
+				<a-entity id="floorButton">
+					<a-cylinder position="0 99.5 2" height="1.1" color="#32CD32" radius ="0.2">
+					<a-cylinder position="0 -0.5 0" height="2.01" color="#808080" radius="0.3">
+				</a-entity>
+			
+				<a-entity id="destructibleBoxE">
+					<a-box position="15 101.25 15" rotation="0 45 0" width="2.5" height="2.5" depth="2.5" color="#D4D4D4">
+					<a-box position="0 0.1 0" rotation="0 90 0" width="0.3" height="2.7" depth="2.8" color="#39FF14">
+					<a-box position="0 0 0" rotation="0 90 0" width="0.3" height="2.8" depth="2.8" color="#39FF14">
+				</a-entity>
+				
+				<a-entity id="boss">
+					<a-gltf-model  src="#bossAlien" position="-15 100.3 0" rotation="0 90 0" scale="5 5 5" animation-mixer ></a-gltf-model>
+					<a-gltf-model  src="#smallAlien"  position="15 100 0" rotation="0 -90 -5" scale="0.7 0.7 0.7" animation-mixer ></a-gltf-model>
+					<a-gltf-model  src="#flyingAlien"  position="0 100 15" rotation="0 360 -5" scale="1 1 1" animation-mixer ></a-gltf-model>
+					<a-gltf-model  src="#normalAlien"  position="0 100 -16" rotation="0 360 0" scale="1.5 1.5 1.5" animation-mixer ></a-gltf-model>
+				</a-entity>
+			</a-entity>
+	  
+	  
+	  
+	  
+	  
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
